@@ -181,8 +181,19 @@ html, body {
     font-size: 16px;
 }
 
+.modal-button:hover {
+    color: $modal-button-hover;
+    background-color: $sidebar-background-color;
+}
+
 .cancel-button {
     color: $text-color;
+    background-color: $sidebar-background-color;
+}
+
+.cancel-button:hover {
+    color: $modal-button-hover;
+    background-color: $sidebar-background-color;
 }
 
 .undo-redo {
@@ -191,4 +202,8 @@ html, body {
 
 .table-entry-buttons {
     color: $text-color;
+}
+
+.material-icons:hover {
+    background-color: $sidebar-background-color
 }
