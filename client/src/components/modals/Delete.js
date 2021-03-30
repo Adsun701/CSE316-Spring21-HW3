@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { WModal, WMHeader, WMMain, WButton } from 'wt-frontend';
 
@@ -10,13 +10,12 @@ const Delete = (props) => {
     }
 
     return (
-        // Replace div with WModal
-        <div className="delete-modal">
-            <div className="modal-header" onClose={() => props.setShowDelete(false)}>
+        <WModal visible={true} className="delete-modal">
+            <WMHeader className="modal-header" onClose={() => props.setShowDelete(false)}>
                 Delete List?
-			</div>
+			</WMHeader>
 
-            <div>
+            <WMMain>
                 <WButton className="modal-button cancel-button" onClick={() => props.setShowDelete(false)} wType="texted">
                     Cancel
 				</WButton>
@@ -24,9 +23,9 @@ const Delete = (props) => {
                 <WButton className="modal-button" onClick={handleDelete} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="danger">
                     Delete
 				</WButton>
-            </div>
+            </WMMain>
 
-        </div>
+        </WModal>
     );
 }
 
