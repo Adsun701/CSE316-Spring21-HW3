@@ -133,6 +133,16 @@ export class jsTPS {
         this.performingDo = false;
         this.performingUndo = false;
     }
+
+    /**
+     * Resets the TPS. Identical to constructor without creating new object.
+     */
+    reset() {
+        this.transactions = [];
+        this.mostRecentTransaction = -1;
+        this.performingDo = false;
+        this.performingUndo = false;
+    }
     
     /**
      * Tests to see if the do (i.e. redo) operation is currently being

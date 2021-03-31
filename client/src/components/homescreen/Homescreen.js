@@ -14,7 +14,8 @@ import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
-	EditItem_Transaction } 				from '../../utils/jsTPS';
+	EditItem_Transaction, 
+	jsTPS} 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
 
@@ -67,6 +68,10 @@ const Homescreen = (props) => {
 		return retVal;
 	}
 
+	const tpsReset = async () => {
+		const retVal = await props.tps.reset();
+		return retVal;
+	}
 
 	// Creates a default item and passes it to the backend resolver.
 	// The return id is assigned to the item, and the item is appended
@@ -138,13 +143,15 @@ const Homescreen = (props) => {
 			items: [],
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
-		setActiveList(list)
+		setActiveList(list);
+		tpsReset();
 	};
 
 	const deleteList = async (_id) => {
 		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		refetch();
 		setActiveList({});
+		tpsReset();
 	};
 
 	const updateListField = async (_id, field, value, prev) => {
@@ -157,6 +164,7 @@ const Homescreen = (props) => {
 	const handleSetActive = (id) => {
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
 		setActiveList(todo);
+		tpsReset();
 	};
 
 	
@@ -197,6 +205,7 @@ const Homescreen = (props) => {
 							fetchUser={props.fetchUser} auth={auth} 
 							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
 							refetchTodos={refetch} setActiveList={setActiveList}
+							tpsReset={tpsReset}
 						/>
 					</ul>
 				</WNavbar>
@@ -226,6 +235,7 @@ const Homescreen = (props) => {
 									editItem={editItem} reorderItem={reorderItem}
 									setShowDelete={setShowDelete}
 									activeList={activeList} setActiveList={setActiveList}
+									tpsReset={tpsReset}
 								/>
 							</div>
 						:
