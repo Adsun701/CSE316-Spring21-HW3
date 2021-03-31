@@ -6,6 +6,8 @@ const TableEntry = (props) => {
 
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
 
+    const clickDisabled = () => { };
+
     const description = data.description;
     const due_date = data.due_date;
     const status = data.completed ? 'complete' : 'incomplete';
@@ -82,12 +84,22 @@ const TableEntry = (props) => {
 
             <WCol size="3">
                 <div className='button-group'>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, -1)} wType="texted">
-                        <i className="material-icons">expand_less</i>
-                    </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, 1)} wType="texted">
-                        <i className="material-icons">expand_more</i>
-                    </WButton>
+                    {props.upDisabled ?
+                        <WButton className="table-entry-buttons disabled" wType="texted">
+                            <i className="material-icons">expand_less</i>
+                        </WButton> :
+                        <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, -1)} wType="texted">
+                            <i className="material-icons">expand_less</i>
+                        </WButton>
+                    }
+                    {props.downDisabled ?
+                        <WButton className="table-entry-buttons disabled" wType="texted">
+                            <i className="material-icons">expand_more</i>
+                        </WButton> :
+                        <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, 1)} wType="texted">
+                            <i className="material-icons">expand_more</i>
+                        </WButton>
+                    }
                     <WButton className="table-entry-buttons" onClick={() => props.deleteItem(data)} wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
