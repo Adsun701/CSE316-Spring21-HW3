@@ -6,8 +6,6 @@ const TableEntry = (props) => {
 
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
 
-    const clickDisabled = () => { };
-
     const description = data.description;
     const due_date = data.due_date;
     const status = data.completed ? 'complete' : 'incomplete';

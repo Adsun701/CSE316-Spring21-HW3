@@ -14,7 +14,6 @@ const LoggedIn = (props) => {
             let reset = await client.resetStore();
             if (reset) {
                 props.setActiveList({});
-                props.tpsReset();
             }
         }
     };
