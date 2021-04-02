@@ -10,6 +10,9 @@ const MainContents = (props) => {
                 setShowDelete={props.setShowDelete} setActiveList={props.setActiveList}
                 tpsReset={props.tpsReset} undo={props.undo} redo={props.redo}
                 canUndo={props.canUndo} canRedo={props.canRedo}
+                sortItemsByDesc={props.sortItemsByDesc} descAsc={props.descAsc} toggleDescAsc={props.toggleDescAsc}
+                sortItemsByDate={props.sortItemsByDate} dateAsc={props.dateAsc} toggleDateAsc={props.toggleDateAsc}
+                sortItemsByStatus={props.sortItemsByStatus} statusAsc={props.statusAsc} toggleStatusAsc={props.toggleStatusAsc}
             />
             <TableContents
                 key={props.activeList.id} activeList={props.activeList}

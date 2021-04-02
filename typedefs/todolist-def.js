@@ -29,6 +29,9 @@ const typeDefs = gql `
 		updateTodolistField(_id: String!, field: String!, value: String!): String
 		updateItemField(itemId: String!, _id: String!, field: String!, value: String!, flag: Int!): [Item]
 		reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
+		sortItemsByDesc(_id: String!, direction: Int!, state: String!): [Item]
+		sortItemsByDate(_id: String!, direction: Int!, state: String!): [Item]
+		sortItemsByStatus(_id: String!, direction: Int!, state: String!): [Item]
 	}
 	input FieldInput {
 		_id: String

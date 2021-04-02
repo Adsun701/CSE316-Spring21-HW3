@@ -74,6 +74,45 @@ export const REORDER_ITEMS = gql`
 	}
 `;
 
+export const SORT_ITEMS_BY_DESC = gql`
+	mutation SortItemsByDesc($_id: String!, $direction: Int!, $state: String!) {
+		sortItemsByDesc(_id: $_id, direction: $direction, state: $state) {
+			_id
+			id
+			description
+			due_date
+			assigned_to
+			completed
+		}
+	}
+`;
+
+export const SORT_ITEMS_BY_DATE = gql`
+	mutation SortItemsByDate($_id: String!, $direction: Int!, $state: String!) {
+		sortItemsByDate(_id: $_id, direction: $direction, state: $state) {
+			_id
+			id
+			description
+			due_date
+			assigned_to
+			completed
+		}
+	}
+`;
+
+export const SORT_ITEMS_BY_STATUS = gql`
+	mutation SortItemsByStatus($_id: String!, $direction: Int!, $state: String!) {
+		sortItemsByStatus(_id: $_id, direction: $direction, state: $state) {
+			_id
+			id
+			description
+			due_date
+			assigned_to
+			completed
+		}
+	}
+`;
+
 export const ADD_TODOLIST = gql`
 	mutation AddTodolist($todolist: TodoInput!) {
 		addTodolist(todolist: $todolist) 

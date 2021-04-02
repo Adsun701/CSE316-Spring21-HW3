@@ -14,7 +14,10 @@ import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
-	EditItem_Transaction, 
+	EditItem_Transaction,
+	SortItemsByDesc_Transaction,
+	SortItemsByDate_Transaction,
+	SortItemsByStatus_Transaction,
 	jsTPS} 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
@@ -26,8 +29,14 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	const [descAsc, toggleDescAsc] 			= useState(true);
+	const [dateAsc, toggleDateAsc] 			= useState(true);
+	const [statusAsc, toggleStatusAsc] 		= useState(true);
 
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
+	const [SortItemsByDesc]			= useMutation(mutations.SORT_ITEMS_BY_DESC);
+	const [SortItemsByDate]			= useMutation(mutations.SORT_ITEMS_BY_DATE);
+	const [SortItemsByStatus]		= useMutation(mutations.SORT_ITEMS_BY_STATUS);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
 	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD);
 	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
@@ -132,6 +141,30 @@ const Homescreen = (props) => {
 
 	};
 
+	const sortItemsByDesc = async (dir) => {
+		let listID = activeList._id;
+		let state = JSON.stringify(activeList.items);
+		let transaction = new SortItemsByDesc_Transaction(listID, dir, state, SortItemsByDesc);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+	}
+
+	const sortItemsByDate = async (dir) => {
+		let listID = activeList._id;
+		let state = JSON.stringify(activeList.items);
+		let transaction = new SortItemsByDate_Transaction(listID, dir, state, SortItemsByDate);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+	}
+
+	const sortItemsByStatus = async (dir) => {
+		let listID = activeList._id;
+		let state = JSON.stringify(activeList.items);
+		let transaction = new SortItemsByStatus_Transaction(listID, dir, state, SortItemsByStatus);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+	}
+
 	const createNewList = async () => {
 		const length = todolists.length
 		const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
@@ -232,6 +265,9 @@ const Homescreen = (props) => {
 								<MainContents
 									addItem={addItem} deleteItem={deleteItem}
 									editItem={editItem} reorderItem={reorderItem}
+									sortItemsByDesc={sortItemsByDesc} descAsc={descAsc} toggleDescAsc={toggleDescAsc}
+									sortItemsByDate={sortItemsByDate} dateAsc={dateAsc} toggleDateAsc={toggleDateAsc}
+									sortItemsByStatus={sortItemsByStatus} statusAsc={statusAsc} toggleStatusAsc={toggleStatusAsc}
 									setShowDelete={setShowDelete}
 									activeList={activeList} setActiveList={setActiveList}
 									tpsReset={tpsReset}
