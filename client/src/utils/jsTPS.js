@@ -107,6 +107,26 @@ export class SortItemsByStatus_Transaction extends jsTPS_Transaction {
     }
 }
 
+/* Sorts items in list by assigned_to. */
+export class SortItemsByAssignedTo_Transaction extends jsTPS_Transaction {
+    constructor(listID, dir, state, callback) {
+        super();
+        this.listID = listID;
+        this.dir = dir;
+        this.state = state;
+        this.updateFunction = callback;
+    }
+
+    async doTransaction() {
+        const { data } = await this.updateFunction({ variables: { _id: this.listID, direction: this.dir, state: this.state}});
+        return data;
+    }
+    async undoTransaction() {
+        const { data } = await this.updateFunction({ variables: { _id: this.listID, direction: 0, state: this.state}});
+        return data;
+    }
+}
+
 /* Handles item editing */
 export class EditItem_Transaction extends jsTPS_Transaction {
 	constructor(listID, itemID, field, prev, update, flag, callback) {

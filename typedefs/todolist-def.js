@@ -32,6 +32,7 @@ const typeDefs = gql `
 		sortItemsByDesc(_id: String!, direction: Int!, state: String!): [Item]
 		sortItemsByDate(_id: String!, direction: Int!, state: String!): [Item]
 		sortItemsByStatus(_id: String!, direction: Int!, state: String!): [Item]
+		sortItemsByAssignedTo(_id: String!, direction: Int!, state: String!): [Item]
 	}
 	input FieldInput {
 		_id: String

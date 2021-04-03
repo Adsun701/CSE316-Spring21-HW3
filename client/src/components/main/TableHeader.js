@@ -11,7 +11,7 @@ const TableHeader = (props) => {
 
     return (
         <WRow className="table-header">
-            <WCol size="4">
+            <WCol size="3">
                 <WButton onClick={() => {
                     props.sortItemsByDesc(props.descAsc ? 1 : -1);
                     props.toggleDescAsc(!props.descAsc);
@@ -19,7 +19,7 @@ const TableHeader = (props) => {
                 } className='table-header-section' wType="texted" >Task</WButton>
             </WCol>
 
-            <WCol size="3">
+            <WCol size="2">
                 <WButton onClick={() => {
                     props.sortItemsByDate(props.dateAsc ? 1 : -1);
                     props.toggleDateAsc(!props.dateAsc);
@@ -33,6 +33,13 @@ const TableHeader = (props) => {
                     props.toggleStatusAsc(!props.statusAsc);
                 }
                 } className='table-header-section' wType="texted" >Status</WButton>
+            </WCol>
+            <WCol size="2">
+                <WButton onClick={() => {
+                    props.sortItemsByAssignedTo(props.assignedToAsc ? 1 : -1);
+                    props.toggleAssignedToAsc(!props.assignedToAsc);
+                }
+                } className='table-header-section' wType="texted" >Assigned To</WButton>
             </WCol>
             <WCol size="2">
                 <div className="table-header-buttons">

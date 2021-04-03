@@ -113,6 +113,19 @@ export const SORT_ITEMS_BY_STATUS = gql`
 	}
 `;
 
+export const SORT_ITEMS_BY_ASSIGNED_TO = gql`
+	mutation SortItemsByAssignedTo($_id: String!, $direction: Int!, $state: String!) {
+		sortItemsByAssignedTo(_id: $_id, direction: $direction, state: $state) {
+			_id
+			id
+			description
+			due_date
+			assigned_to
+			completed
+		}
+	}
+`;
+
 export const ADD_TODOLIST = gql`
 	mutation AddTodolist($todolist: TodoInput!) {
 		addTodolist(todolist: $todolist) 

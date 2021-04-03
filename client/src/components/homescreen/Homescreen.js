@@ -18,6 +18,7 @@ import { UpdateListField_Transaction,
 	SortItemsByDesc_Transaction,
 	SortItemsByDate_Transaction,
 	SortItemsByStatus_Transaction,
+	SortItemsByAssignedTo_Transaction,
 	jsTPS} 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
@@ -32,11 +33,13 @@ const Homescreen = (props) => {
 	const [descAsc, toggleDescAsc] 			= useState(true);
 	const [dateAsc, toggleDateAsc] 			= useState(true);
 	const [statusAsc, toggleStatusAsc] 		= useState(true);
+	const [assignedToAsc, toggleAssignedToAsc] = useState(true);
 
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
 	const [SortItemsByDesc]			= useMutation(mutations.SORT_ITEMS_BY_DESC);
 	const [SortItemsByDate]			= useMutation(mutations.SORT_ITEMS_BY_DATE);
 	const [SortItemsByStatus]		= useMutation(mutations.SORT_ITEMS_BY_STATUS);
+	const [SortItemsByAssignedTo]	= useMutation(mutations.SORT_ITEMS_BY_ASSIGNED_TO);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
 	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD);
 	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
@@ -165,6 +168,14 @@ const Homescreen = (props) => {
 		tpsRedo();
 	}
 
+	const sortItemsByAssignedTo = async (dir) => {
+		let listID = activeList._id;
+		let state = JSON.stringify(activeList.items);
+		let transaction = new SortItemsByAssignedTo_Transaction(listID, dir, state, SortItemsByAssignedTo);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+	}
+
 	const createNewList = async () => {
 		const length = todolists.length
 		const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
@@ -268,6 +279,7 @@ const Homescreen = (props) => {
 									sortItemsByDesc={sortItemsByDesc} descAsc={descAsc} toggleDescAsc={toggleDescAsc}
 									sortItemsByDate={sortItemsByDate} dateAsc={dateAsc} toggleDateAsc={toggleDateAsc}
 									sortItemsByStatus={sortItemsByStatus} statusAsc={statusAsc} toggleStatusAsc={toggleStatusAsc}
+									sortItemsByAssignedTo={sortItemsByAssignedTo} assignedToAsc={assignedToAsc} toggleAssignedToAsc={toggleAssignedToAsc}
 									setShowDelete={setShowDelete}
 									activeList={activeList} setActiveList={setActiveList}
 									tpsReset={tpsReset}

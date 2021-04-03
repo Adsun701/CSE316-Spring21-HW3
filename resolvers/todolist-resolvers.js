@@ -231,6 +231,29 @@ module.exports = {
 			// return old ordering if reorder was unsuccessful
 			listItems = found.items;
 			return (found.items);
+		},
+
+		/**
+		  	@param {object} args - contains list id, sort direction (1 is ascending, -1 is descending), state (stringified items)
+		  	@returns {array} the sorted item array (by assigned_to) on success, or initial ordering on failure
+		**/
+		sortItemsByAssignedTo: async (_, args) => {
+			const { _id, direction, state} = args;
+			const listId = new ObjectId(_id);
+			const found = await Todolist.findOne({_id: listId});
+			let listItems = found.items;
+			// sort items by assigned_to.
+			if (direction > 0)
+				listItems.sort((a, b) => (a.assigned_to < b.assigned_to) ? 1 : -1);
+			else if (direction < 0)
+				listItems.sort((a, b) => (a.assigned_to > b.assigned_to) ? 1 : -1);
+			else
+				listItems = JSON.parse(state);
+			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
+			if(updated) return (listItems);
+			// return old ordering if reorder was unsuccessful
+			listItems = found.items;
+			return (found.items);
 		}
 	},
 }
