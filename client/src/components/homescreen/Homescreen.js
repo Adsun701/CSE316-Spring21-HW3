@@ -8,7 +8,7 @@ import Delete 							from '../modals/Delete';
 import CreateAccount 					from '../modals/CreateAccount';
 import { GET_DB_TODOS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
-import { useMutation, useQuery } 		from '@apollo/client';
+import { useApolloClient, useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
@@ -46,6 +46,8 @@ const Homescreen = (props) => {
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
+
+	const client = useApolloClient();
 
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
@@ -206,8 +208,16 @@ const Homescreen = (props) => {
 	};
 
 	const handleSetActive = (id) => {
-		const todo = todolists.find(todo => todo.id === id || todo._id === id);
-		setActiveList(todo);
+		console.log(id);
+		const selectedTodo = todolists.find(todo => todo.id === id || todo._id === id);
+		const newLists = todolists.filter(todo => todo.id != id && todo._id != id);
+		client.writeQuery({
+			query: GET_DB_TODOS,
+			data: {
+				getAllTodos: [selectedTodo, ...newLists],
+			}
+		});
+		setActiveList(selectedTodo);
 		tpsReset();
 	};
 
