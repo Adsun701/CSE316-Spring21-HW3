@@ -22,6 +22,7 @@ const CreateAccount = (props) => {
 				alert('All fields must be filled out to register');
 				return;
 			}
+			else if (field === 'email') input[field] = input[field].toLowerCase();
 		}
 		const { loading, error, data } = await Register({ variables: { ...input } });
 		if (loading) { toggleLoading(true) };
