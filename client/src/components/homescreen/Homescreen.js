@@ -208,7 +208,6 @@ const Homescreen = (props) => {
 	};
 
 	const handleSetActive = (id) => {
-		console.log(id);
 		const selectedTodo = todolists.find(todo => todo.id === id || todo._id === id);
 		const newLists = todolists.filter(todo => todo.id != id && todo._id != id);
 		client.writeQuery({
@@ -243,6 +242,11 @@ const Homescreen = (props) => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
 		toggleShowDelete(!showDelete)
+	}
+
+	const handleKeyDown = (event) => {
+		if (event.ctrlKey && event.keyCode == 90 && props.tps.hasTransactionToUndo()) tpsUndo();
+		else if (event.ctrlKey && event.keyCode == 89 && props.tps.hasTransactionToRedo()) tpsRedo();
 	}
 
 	return (
@@ -282,7 +286,7 @@ const Homescreen = (props) => {
 			<WLMain>
 				{
 					activeList ? 
-							<div className="container-secondary">
+							<div className="container-secondary" onKeyDown={handleKeyDown}>
 								<MainContents
 									addItem={addItem} deleteItem={deleteItem}
 									editItem={editItem} reorderItem={reorderItem}
