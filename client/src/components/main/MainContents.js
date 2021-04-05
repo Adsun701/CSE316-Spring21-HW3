@@ -14,6 +14,7 @@ const MainContents = (props) => {
                 sortItemsByDate={props.sortItemsByDate} dateAsc={props.dateAsc} toggleDateAsc={props.toggleDateAsc}
                 sortItemsByStatus={props.sortItemsByStatus} statusAsc={props.statusAsc} toggleStatusAsc={props.toggleStatusAsc}
                 sortItemsByAssignedTo={props.sortItemsByAssignedTo} assignedToAsc={props.assignedToAsc} toggleAssignedToAsc={props.toggleAssignedToAsc}
+                toggleListSelected={props.toggleListSelected}
             />
             <TableContents
                 key={props.activeList.id} activeList={props.activeList}

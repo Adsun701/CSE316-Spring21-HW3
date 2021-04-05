@@ -27,6 +27,7 @@ const Homescreen = (props) => {
 
 	let todolists 							= [];
 	const [activeList, setActiveList] 		= useState({});
+	const [listSelected, toggleListSelected] = useState(false);
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
@@ -217,6 +218,7 @@ const Homescreen = (props) => {
 			}
 		});
 		setActiveList(selectedTodo);
+		toggleListSelected(true);
 		tpsReset();
 	};
 
@@ -241,7 +243,7 @@ const Homescreen = (props) => {
 	const setShowDelete = () => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
-		toggleShowDelete(!showDelete)
+		toggleShowDelete(!showDelete);
 	}
 
 	const handleKeyDown = (event) => {
@@ -276,7 +278,7 @@ const Homescreen = (props) => {
 							<SidebarContents
 								todolists={todolists} activeid={activeList.id} auth={auth}
 								handleSetActive={handleSetActive} createNewList={createNewList}
-								updateListField={updateListField}
+								updateListField={updateListField} listSelected={listSelected}
 							/>
 							:
 							<></>
@@ -300,6 +302,7 @@ const Homescreen = (props) => {
 									undo={tpsUndo} redo={tpsRedo}
 									canUndo={props.tps.hasTransactionToUndo()}
 									canRedo={props.tps.hasTransactionToRedo()}
+									toggleListSelected={toggleListSelected}
 								/>
 							</div>
 						:
@@ -309,7 +312,7 @@ const Homescreen = (props) => {
 			</WLMain>
 
 			{
-				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
+				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} toggleListSelected={toggleListSelected} />)
 			}
 
 			{
