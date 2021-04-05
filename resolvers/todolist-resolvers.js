@@ -175,9 +175,9 @@ module.exports = {
 			let listItems = found.items;
 			// sort items by description.
 			if (direction > 0)
-				listItems.sort((a, b) => (a.description < b.description) ? 1 : -1);
+				listItems.sort((a, b) => (a.description.toLowerCase() < b.description.toLowerCase()) ? 1 : -1);
 			else if (direction < 0)
-				listItems.sort((a, b) => (a.description > b.description) ? 1 : -1);
+				listItems.sort((a, b) => (a.description.toLowerCase() > b.description.toLowerCase()) ? 1 : -1);
 			else
 				listItems = JSON.parse(state);
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
@@ -244,9 +244,9 @@ module.exports = {
 			let listItems = found.items;
 			// sort items by assigned_to.
 			if (direction > 0)
-				listItems.sort((a, b) => (a.assigned_to < b.assigned_to) ? 1 : -1);
+				listItems.sort((a, b) => (a.assigned_to.toLowerCase() < b.assigned_to.toLowerCase()) ? 1 : -1);
 			else if (direction < 0)
-				listItems.sort((a, b) => (a.assigned_to > b.assigned_to) ? 1 : -1);
+				listItems.sort((a, b) => (a.assigned_to.toLowerCase() > b.assigned_to.toLowerCase()) ? 1 : -1);
 			else
 				listItems = JSON.parse(state);
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
