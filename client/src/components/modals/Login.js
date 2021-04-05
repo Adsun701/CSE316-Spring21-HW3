@@ -28,8 +28,9 @@ const Login = (props) => {
 		if (data) {
 			props.fetchUser();
 			props.refetchTodos();
-			toggleLoading(false)
-			props.setShowLogin(false)
+			toggleLoading(false);
+			props.setShowLogin(false);
+			props.toggleListSelected(false);
 		};
 	};
 
